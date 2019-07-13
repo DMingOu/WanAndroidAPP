@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <!--<color name="colorAccent">#ff4081</color>-->
+    <color name="snow">#FFFAFA</color> <!--雪白色 -->
+    <color name="beige">#F5F5DC</color> <!--米色 -->
+    <color name="app_bg">#eee</color>
+    <color name="white">#fff</color>
+    <color name="shallow_white">#80ffffff</color>
+    <color name="black">#000000</color>
+    <color name="gray">#aaa</color>
+    <color name="red">#FF0000</color>
+    <color name="translucent">#00000000</color>
+    <color name="toolbar_bg">#2a3575</color>
+    <color name="blue">#0091ea</color>
+    <color name="green">#009a61</color>
+    <color name="_a5a9aa">#a5a9aa</color>
+    <color name="_2e3135">#2e3135</color>
+    <color name="_333333">#333333</color>
+    <color name="_767676">#767676</color>
+    <color name="_60ffffff">#60ffffff</color>
+    <color name="_20000000">#20000000</color>
+    <color name="_10000000">#10000000</color>
+    <color name="_484848">#484848</color>
+    <color name="_999999">#999999</color>
+</resources>

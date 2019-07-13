@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    app:cardBackgroundColor="@color/white"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    app:contentPadding="10dp"
+    app:cardElevation="1dp"
+    app:cardCornerRadius="2dp"
+    app:contentPaddingBottom="6dp">
+
+<!--卡片CardView展示文章的标题，作者，日期等信息-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ll_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_superChapterName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/blue"
+                android:background="@drawable/shape_article_tv_superchaptername"
+                android:layout_marginRight="6dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                tools:text="文章所属类别"/>
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/_484848"
+                tools:text="作者名字"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/_999999"
+            tools:text="文章热度时间"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_vertical|left"
+            android:layout_below="@+id/ll_author"
+            android:textColor="@color/_2e3135"
+            tools:text="文章标题--文章标题--文章标题"/>
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
