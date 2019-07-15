@@ -37,11 +37,11 @@
             android:singleLine="true"
             android:gravity="center"
             android:textStyle="bold"
-            android:hint="搜索关键词以空格形式隔开"/>
+            android:hint="@string/notice_sreach"/>
     </LinearLayout>
 
 
-    <android.support.v7.widget.RecyclerView
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/rv_article_search"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.wanandroidapp.core.http;
+package com.example.wanandroidapp.base;
 
 /**
  * Observerser的基础接口

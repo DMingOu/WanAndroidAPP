@@ -11,36 +11,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
-    android:id="@+id/appbarlayout"
+     <android.support.design.widget.AppBarLayout
+    android:id="@+id/appbarlayout_main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/tool_bar_main"
+        android:id="@+id/tool_bar_home"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:titleTextColor="@color/white"
         app:theme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_scrollFlags="enterAlways|enterAlways|enterAlways"/>
 
-</android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>
 
                 <!--用SwipeRefreshLayout包裹RecyclerView-->
-                <android.support.v4.widget.SwipeRefreshLayout
-                    android:id="@+id/swipe_refresh_layout_main"
-                    android:layout_below="@id/appbarlayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-                    <!--显示文章列表的布局，采用RecycleView-->
-                    <android.support.v7.widget.RecyclerView
+                <!--<android.support.v4.widget.SwipeRefreshLayout-->
+                    <!--android:id="@+id/swipe_refresh_layout_main"-->
+                    <!--android:layout_below="@id/appbarlayout"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+                    <!--显示文章列表的布局，采用XRecycleView-->
+                    <com.jcodecraeer.xrecyclerview.XRecyclerView
+                        android:layout_below="@id/appbarlayout_main"
                         android:id="@+id/rv_item_article"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        />
-                </android.support.v4.widget.SwipeRefreshLayout>
+                        android:layout_height="match_parent" />
+
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:hint="用户名"
+                android:hint="@string/username"
                 android:inputType="" />
 
         </android.support.design.widget.TextInputLayout>
@@ -61,8 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="密码"
-                android:autofillHints="" />
+                android:hint="@string/password" />
 
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -75,8 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="请再次确认密码"
-                android:importantForAutofill="no" />
+                android:hint="@string/re_password" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -92,7 +90,7 @@
                 android:layout_width="370dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="注册"
+                android:text="@string/register"
                 android:textSize="18sp"
                 android:onClick="register"
                 android:background="@drawable/shape_user_button_login"/>
@@ -102,9 +100,9 @@
             android:id="@+id/tv_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="已有账号？返回登录页面"
+            android:text="@string/toLogin"
             android:textSize="17sp"
-            android:layout_marginLeft="180dp"
+            android:layout_marginStart="180dp"
             android:layout_marginTop="10dp"/>
     </LinearLayout>
 </RelativeLayout>
