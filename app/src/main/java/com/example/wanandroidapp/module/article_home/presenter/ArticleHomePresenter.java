@@ -31,15 +31,14 @@ public class ArticleHomePresenter extends BasePresenter<ArticleHomeContract.View
     public void  getArticleList() {
         this.mArtcileList = new ArrayList<>();
         //定义listener接受回调
-        ObserverOnNextListener<ArticleItemData.DataBean> listener = new ObserverOnNextListener<ArticleItemData.DataBean>() {
+        ObserverOnNextListener<ArticleItemData> listener = new ObserverOnNextListener<ArticleItemData>() {
             @Override
-            public void onNext(ArticleItemData.DataBean dataBean) {
-                Logger.d("首次加载" + dataBean.getTotal());
-                mArtcileList.addAll(dataBean.getDatas());
+            public void onNext(ArticleItemData dataBean) {
+                Logger.d("首次加载" + dataBean.getData().getTotal());
+                mArtcileList.addAll(dataBean.getData().getDatas());
             }
             @Override
             public void onComplete() {
-                Logger.d("onComplete" );
                 getView().getmArticleAdapter().setData(mArtcileList);
             }
         };
@@ -57,15 +56,16 @@ public class ArticleHomePresenter extends BasePresenter<ArticleHomeContract.View
         mArtcileList.clear();
         currentCurPage = 0;
         //定义listener接受回调
-        ObserverOnNextListener<ArticleItemData.DataBean> listener = new ObserverOnNextListener<ArticleItemData.DataBean>() {
+        ObserverOnNextListener<ArticleItemData> listener = new ObserverOnNextListener<ArticleItemData>() {
             @Override
-            public void onNext(ArticleItemData.DataBean dataBean) {
+            public void onNext(ArticleItemData dataBean) {
                 Logger.d("刷新" );
-                mArtcileList.addAll(dataBean.getDatas());
+                mArtcileList.addAll(dataBean.getData().getDatas());
             }
             @Override
             public void onComplete() {
-                getView().showArticleList(mArtcileList,true);
+                //刷新适配器里的数据
+                getView().getmArticleAdapter().notifyDataSetChanged();
             }
         };
         articleHomeModel.refresh(listener,currentCurPage);
@@ -75,15 +75,16 @@ public class ArticleHomePresenter extends BasePresenter<ArticleHomeContract.View
     @Override
     public void loadMore() {
         //定义listener接受回调
-        ObserverOnNextListener<ArticleItemData.DataBean> listener = new ObserverOnNextListener<ArticleItemData.DataBean>() {
+        ObserverOnNextListener<ArticleItemData> listener = new ObserverOnNextListener<ArticleItemData>() {
             @Override
-            public void onNext(ArticleItemData.DataBean dataBean) {
+            public void onNext(ArticleItemData dataBean) {
                 Logger.d("加载更多" );
-                mArtcileList.addAll(dataBean.getDatas());
+                mArtcileList.addAll(dataBean.getData().getDatas());
             }
             @Override
             public void onComplete() {
-                getView().showArticleList(mArtcileList,false);
+                //刷新适配器里的数据
+                getView().getmArticleAdapter().setData(mArtcileList);
             }
         };
         articleHomeModel.loadMore(listener,currentCurPage);

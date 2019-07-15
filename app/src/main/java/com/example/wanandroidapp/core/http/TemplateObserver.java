@@ -7,6 +7,9 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
+ * 封装模板 Observer类
+ * 只需要重写
+ *
  * @author: ODM
  * @date: 2019/7/14
  */

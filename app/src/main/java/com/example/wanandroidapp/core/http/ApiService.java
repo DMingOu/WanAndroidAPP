@@ -31,7 +31,7 @@ public interface  ApiService {
      * @param pageNum
      */
     @GET("article/list/{pageNum}/json")
-    Observable<ArticleItemData.DataBean> getArticleList(@Path("pageNum") int pageNum);
+    Observable<ArticleItemData> getArticleList(@Path("pageNum") int pageNum);
 
     /**
      * 广告栏

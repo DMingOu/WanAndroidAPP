@@ -20,9 +20,9 @@ public class ArticleHomeModel implements ArticleHomeContract.Model {
     private List<ArticleItemData.DataBean.DatasBean>  mArtcileList;
 
     @Override
-    public void getArticleList(ObserverOnNextListener<ArticleItemData.DataBean> listener,int curPage) {
+    public void getArticleList(ObserverOnNextListener<ArticleItemData> listener,int curPage) {
         //此处要获取一个装满文章的文章列表
-        ApiMethods.getArticleList(new TemplateObserver<ArticleItemData.DataBean>(WanAndroidApp.getContext(),listener),curPage);
+        ApiMethods.getArticleList(new TemplateObserver<ArticleItemData>(WanAndroidApp.getContext(),listener),curPage);
     }
 
     @Override
@@ -31,12 +31,12 @@ public class ArticleHomeModel implements ArticleHomeContract.Model {
     }
 
     @Override
-    public void refresh(ObserverOnNextListener<ArticleItemData.DataBean> listener , int curPage) {
-        ApiMethods.getArticleList(new TemplateObserver<ArticleItemData.DataBean>(WanAndroidApp.getContext(),listener),curPage);
+    public void refresh(ObserverOnNextListener<ArticleItemData> listener , int curPage) {
+        ApiMethods.getArticleList(new TemplateObserver<ArticleItemData>(WanAndroidApp.getContext(),listener),curPage);
     }
 
     @Override
-    public void loadMore(ObserverOnNextListener<ArticleItemData.DataBean> listener , int curPage) {
-        ApiMethods.getArticleList(new TemplateObserver<ArticleItemData.DataBean>(WanAndroidApp.getContext(),listener),curPage);
+    public void loadMore(ObserverOnNextListener<ArticleItemData> listener , int curPage) {
+        ApiMethods.getArticleList(new TemplateObserver<ArticleItemData>(WanAndroidApp.getContext(),listener),curPage);
         }
         }

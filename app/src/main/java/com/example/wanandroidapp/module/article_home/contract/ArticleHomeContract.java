@@ -26,7 +26,7 @@ public interface ArticleHomeContract {
         /**
          *  To Get article list.
          */
-        void getArticleList(ObserverOnNextListener<ArticleItemData.DataBean> listener , int curPage);
+        void getArticleList(ObserverOnNextListener<ArticleItemData> listener , int curPage);
 
         /**
          *  To Get banner data.
@@ -36,14 +36,14 @@ public interface ArticleHomeContract {
         /**
          * Refresh.
          */
-        void refresh (ObserverOnNextListener<ArticleItemData.DataBean> listener , int curPage);
+        void refresh (ObserverOnNextListener<ArticleItemData> listener , int curPage);
 
         /**
          * Load more.
          *
          * @param curPage the cur page
          */
-        void loadMore (ObserverOnNextListener<ArticleItemData.DataBean> listener , int curPage);
+        void loadMore (ObserverOnNextListener<ArticleItemData> listener , int curPage);
     }
 
     /**

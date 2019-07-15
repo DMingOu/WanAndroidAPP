@@ -46,9 +46,6 @@ public class ArticleHomeActivity <P extends IBasePresenter> extends BaseActivity
     @BindView(R.id.rv_item_article)
     XRecyclerView xRvArticle;
 
-
-
-
     private List<ArticleItemData.DataBean.DatasBean> articleList = new ArrayList<>();
     private ArticleListAdapter mArticleAdapter;
 
@@ -174,37 +171,23 @@ public class ArticleHomeActivity <P extends IBasePresenter> extends BaseActivity
 
     @Override
     public void showArticleList(List<ArticleItemData.DataBean.DatasBean> mArticleList , boolean isRefresh) {
-        //把这个list 放进 adapter ，让它显示出来
-        //加载文章状态--Adapter增加
-        if (! isRefresh  ) {
-            articleList.addAll(mArticleList);
-
-            mArticleAdapter = new ArticleListAdapter(articleList);
-            initView();
-            //xRvArticle.notifyAll();
-        } else {
-            //刷新状态--Adapter恢复成一页
-            mArticleAdapter.notifyItemRangeRemoved(0,mArticleAdapter.getItemCount());
-            articleList.clear();
-            articleList.addAll(mArticleList);
-            xRvArticle.notifyAll();
-        }
+//        //把这个list 放进 adapter ，让它显示出来
+//        //加载文章状态--Adapter增加
+//        if (! isRefresh  ) {
+//            articleList.addAll(mArticleList);
+//
+//            mArticleAdapter = new ArticleListAdapter(articleList);
+//            initView();
+//            //xRvArticle.notifyAll();
+//        } else {
+//            //刷新状态--Adapter恢复成一页
+//            mArticleAdapter.notifyItemRangeRemoved(0,mArticleAdapter.getItemCount());
+//            articleList.clear();
+//            articleList.addAll(mArticleList);
+//            xRvArticle.notifyAll();
+//        }
     }
 
-    public void showArticle(List<ArticleItemData> List){
-//        Observable.just(getPresenter().getArticleList())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<List<ArticleItemData>>() {
-//                    @Override
-//                    public void accept(List<ArticleItemData> List) throws Exception {
-//                        articleList.addAll(List);
-//                        mArticleAdapter = new ArticleListAdapter(articleList);
-//                    }
-//                });
-         mArticleAdapter = new ArticleListAdapter();
-         initView();
-    }
 
     @Override
     public ArticleListAdapter getmArticleAdapter() {

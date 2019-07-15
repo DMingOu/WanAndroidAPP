@@ -1,4 +1,4 @@
-package com.example.wanandroidapp.util;
+package com.example.wanandroidapp.util.retrofitUtil;
 
 import com.example.wanandroidapp.core.http.ApiService;
 
@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author: ODM
  * @date: 2019/7/14
  */
-public class RetrofitUtil {
+public class RetrofitMonitor {
 
     public static String baseUrl = ApiService.BASE_URL;
 
@@ -19,16 +19,16 @@ public class RetrofitUtil {
     //单例
     public static ApiService getApiService() {
         if (apiService == null) {
-            synchronized (RetrofitUtil.class) {
+            synchronized (RetrofitMonitor.class) {
                 if (apiService == null) {
-                    new  RetrofitUtil();
+                    new RetrofitMonitor();
                 }
             }
         }
         return  apiService;
     }
 
-    private RetrofitUtil() {
+    private RetrofitMonitor() {
         Retrofit  retrofit = new  Retrofit.Builder()
                                         .baseUrl(baseUrl)
                                         .client( new OkHttpClient())
@@ -39,10 +39,10 @@ public class RetrofitUtil {
     }
 
     private static class SingletonHolder {
-        private static final RetrofitUtil INSTANCE = new RetrofitUtil();
+        private static final RetrofitMonitor INSTANCE = new RetrofitMonitor();
     }
 
-    public static RetrofitUtil getInstance() {
+    public static RetrofitMonitor getInstance() {
         return SingletonHolder.INSTANCE;
     }
 
