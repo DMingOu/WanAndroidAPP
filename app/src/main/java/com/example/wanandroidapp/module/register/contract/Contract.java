@@ -3,6 +3,9 @@ package com.example.wanandroidapp.module.register.contract;
 import com.example.wanandroidapp.base.model.IModel;
 import com.example.wanandroidapp.base.presenter.IBasePresenter;
 import com.example.wanandroidapp.base.view.IBaseView;
+import com.example.wanandroidapp.bean.LoginData;
+import com.example.wanandroidapp.bean.RegisterData;
+import com.example.wanandroidapp.core.http.ObserverOnNextListener;
 
 /**
  * 注册模块--契约类
@@ -12,7 +15,7 @@ import com.example.wanandroidapp.base.view.IBaseView;
  */
 public interface Contract {
     interface Model extends IModel {
-        public void getRegister(String userName , String password , String rePassword);
+        public void getRegister(ObserverOnNextListener<RegisterData> listener , String userName , String password , String rePassword);
     }
 
     interface View extends IBaseView {

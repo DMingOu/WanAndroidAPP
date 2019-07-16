@@ -87,7 +87,7 @@
 
             <Button
                 android:id="@+id/bt_register"
-                android:layout_width="370dp"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/register"
@@ -101,8 +101,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/toLogin"
-            android:textSize="17sp"
-            android:layout_marginStart="180dp"
+            android:textSize="15sp"
+            android:layout_marginStart="165dp"
             android:layout_marginTop="10dp"/>
     </LinearLayout>
 </RelativeLayout>

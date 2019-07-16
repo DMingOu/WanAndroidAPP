@@ -1,4 +1,4 @@
-package com.example.wanandroidapp.module.article_home.contract;
+package com.example.wanandroidapp.module.home_pager.contract;
 
 import com.example.wanandroidapp.base.model.IModel;
 import com.example.wanandroidapp.base.presenter.IBasePresenter;
@@ -6,11 +6,9 @@ import com.example.wanandroidapp.base.view.IBaseView;
 import com.example.wanandroidapp.bean.ArticleItemData;
 import com.example.wanandroidapp.bean.BannerData;
 import com.example.wanandroidapp.core.http.ObserverOnNextListener;
-import com.example.wanandroidapp.module.article_home.ui.ArticleListAdapter;
+import com.example.wanandroidapp.module.home_pager.ui.ArticleListAdapter;
 
 import java.util.List;
-
-import io.reactivex.Observer;
 
 /**
  * The interface Article home contract.
@@ -31,7 +29,7 @@ public interface ArticleHomeContract {
         /**
          *  To Get banner data.
          */
-        void getBannerData();
+        void getBannerData(ObserverOnNextListener<BannerData> listener);
 
         /**
          * Refresh.
@@ -50,20 +48,13 @@ public interface ArticleHomeContract {
      * The interface View.
      */
     interface View  extends IBaseView {
-        /**
-         * Show article list.
-         *
-         * @param mArticleList the articlelist
-         * @param isRefresh       the is refresh
-         */
-        void showArticleList(List<ArticleItemData.DataBean.DatasBean> mArticleList, boolean isRefresh);
 
         /**
          * Show banner data.
          *
          * @param bannerDataList the banner data list
          */
-        void showBannerData(List<BannerData> bannerDataList);
+        void showBannerData(List<BannerData.DataBean> bannerDataList);
 
          ArticleListAdapter getmArticleAdapter();
     }

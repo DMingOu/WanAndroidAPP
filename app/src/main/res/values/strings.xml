@@ -8,7 +8,7 @@
     <string name="register">注册</string>
     <string name="search">搜索</string>
     <string name="notice_sreach">搜索关键词以空格形式隔开</string>
-    <string name="toLogin">已有账号？返回登录页面</string>
+    <string name="toLogin">已有账号？快返回登录页面吧!</string>
     <string name="toRegister">还没有账号？快来注册一个吧</string>
     <!-- Strings related to login -->
     <!--<string name="prompt_email">Email</string>-->

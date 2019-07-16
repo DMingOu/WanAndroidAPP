@@ -1,4 +1,4 @@
-package com.example.wanandroidapp.module.article_home.ui;
+package com.example.wanandroidapp.module.home_pager.ui;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -15,10 +15,7 @@ import com.example.wanandroidapp.R;
 import com.example.wanandroidapp.bean.ArticleItemData;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,7 +80,7 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
             itemData = mArticleList.get(position);
             ((ItemArticleViewHolder) holder).tvTitle.setText(Html.fromHtml(itemData.getTitle()));
             ((ItemArticleViewHolder) holder).tvTime.setText(itemData.getNiceDate());
-            String authoreInfo = "作者" + itemData.getAuthor();
+            String authoreInfo = "作者:  " + itemData.getAuthor();
             ((ItemArticleViewHolder) holder).tvAuthor.setText(authoreInfo);
             if (itemData.getSuperChapterName().equals("")) {
                 itemData.setSuperChapterName("开发者");
@@ -110,9 +107,7 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
 
     }
 
-     /*
-      *  获取子项在滚动列表里的位置
-      */
+
     @Override
     public int getItemCount() {
         return  mArticleList.size();

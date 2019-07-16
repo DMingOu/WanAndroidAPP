@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".module.ReadActivity"></activity>
-        <activity android:name=".module.article_home.ui.ArticleHomeActivity">
+        <activity android:name=".module.home_pager.ui.ArticleHomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +36,7 @@
             android:name=".module.register.ui.RegisterActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".module.search.ui.SearchActivity"
+            android:name=".module.search_article.ui.SearchActivity"
             android:launchMode="singleTask" />
     </application>
 

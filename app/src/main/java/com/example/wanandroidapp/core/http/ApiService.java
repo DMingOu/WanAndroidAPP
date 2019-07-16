@@ -40,14 +40,14 @@ public interface  ApiService {
      * @return 广告栏数据
      */
     @GET("banner/json")
-    Observable<BaseResponse<List<BannerData>>> getBannerData();
+    Observable<BannerData> getBannerData();
 
     /**
      * 获取首页置顶文章列表
      * https://www.wanandroid.com/article/top/json
      */
     @GET("article/top/json")
-    Observable<BaseResponse<List<ArticleItemData.DataBean>>> getTopArticles();
+    Observable<List<ArticleItemData.DataBean>> getTopArticles();
 
 
 
@@ -56,12 +56,12 @@ public interface  ApiService {
      * https://www.wanandroid.com/article/query/0/json
      *
      * @param page page
-     * @param k    POST search key
+     * @param keyword    POST search key
      * @return 搜索数据
      */
     @POST("article/query/{page}/json")
     @FormUrlEncoded
-    Observable<BaseResponse<ArticleItemData.DataBean>> getSearchResultList(@Path("page") int page, @Field("k") String k);
+    Observable<ArticleItemData> getSearchResultList(@Path("page") int page, @Field("k") String keyword);
 
     /**
      * 登录
@@ -73,7 +73,7 @@ public interface  ApiService {
      */
     @POST("user/login")
     @FormUrlEncoded
-    Observable<BaseResponse<LoginData>> login(@Field("username") String username, @Field("password") String password);
+    Observable<LoginData> login(@Field("username") String username, @Field("password") String password);
 
     /**
      * 注册
@@ -86,7 +86,7 @@ public interface  ApiService {
      */
     @POST("user/register")
     @FormUrlEncoded
-    Observable<BaseResponse<RegisterData>> register(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
+    Observable<RegisterData> register(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
 
     /**
      * 退出登录
@@ -95,7 +95,7 @@ public interface  ApiService {
      * @return 登录数据
      */
     @GET("user/logout/json")
-    Observable<BaseResponse<LoginData>> logout();
+    Observable<LoginData> logout();
 
     /**
      * 收藏站内文章
@@ -105,7 +105,7 @@ public interface  ApiService {
      * @return 收藏站内文章数据
      */
     @POST("lg/collect/{id}/json")
-    Observable<BaseResponse<ArticleItemData.DataBean>> addCollectArticle(@Path("id") int id);
+    Observable<ArticleItemData> addCollectArticle(@Path("id") int id);
 
     /**
      * 收藏站外文章
@@ -118,7 +118,7 @@ public interface  ApiService {
      */
     @POST("lg/collect/add/json")
     @FormUrlEncoded
-    Observable<BaseResponse<ArticleItemData.DataBean>> addCollectOutsideArticle(@Field("title") String title, @Field("author") String author, @Field("link") String link);
+    Observable<ArticleItemData> addCollectOutsideArticle(@Field("title") String title, @Field("author") String author, @Field("link") String link);
 
 
     /**
@@ -129,7 +129,7 @@ public interface  ApiService {
      * @return 收藏列表数据
      */
     @GET("lg/collect/list/{page}/json")
-    Observable<BaseResponse<ArticleItemData.DataBean>> getCollectList(@Path("page") int page);
+    Observable<ArticleItemData> getCollectList(@Path("page") int page);
 
     /**
      * 文章列表中取消收藏文章
@@ -139,7 +139,7 @@ public interface  ApiService {
      * @return 取消站内文章数据
      */
     @POST("lg/uncollect_originId/{id}/json")
-    Observable<BaseResponse<ArticleItemData.DataBean>> cancelCollectArticle(@Path("id") int id);
+    Observable<ArticleItemData> cancelCollectArticle(@Path("id") int id);
 
     /**
      * 收藏列表中取消收藏文章
@@ -152,6 +152,6 @@ public interface  ApiService {
      */
     @POST("lg/uncollect/{id}/json")
     @FormUrlEncoded
-    Observable<BaseResponse<ArticleItemData.DataBean>> cancelCollectInCollectPage(@Path("id") int id, @Field("originId") int originId);
+    Observable<ArticleItemData> cancelCollectInCollectPage(@Path("id") int id, @Field("originId") int originId);
 
 }

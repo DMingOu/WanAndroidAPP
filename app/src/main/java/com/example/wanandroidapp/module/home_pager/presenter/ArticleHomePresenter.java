@@ -1,12 +1,12 @@
-package com.example.wanandroidapp.module.article_home.presenter;
+package com.example.wanandroidapp.module.home_pager.presenter;
 
 import com.example.wanandroidapp.base.presenter.BasePresenter;
 import com.example.wanandroidapp.bean.ArticleItemData;
+import com.example.wanandroidapp.bean.BannerData;
 import com.example.wanandroidapp.core.http.ObserverOnNextListener;
-import com.example.wanandroidapp.module.article_home.contract.ArticleHomeContract;
-import com.example.wanandroidapp.module.article_home.model.ArticleHomeModel;
-import com.example.wanandroidapp.module.article_home.ui.ArticleHomeActivity;
-import com.example.wanandroidapp.module.article_home.ui.ArticleListAdapter;
+import com.example.wanandroidapp.module.home_pager.contract.ArticleHomeContract;
+import com.example.wanandroidapp.module.home_pager.model.ArticleHomeModel;
+import com.example.wanandroidapp.module.home_pager.ui.ArticleHomeActivity;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ public class ArticleHomePresenter extends BasePresenter<ArticleHomeContract.View
     private ArticleHomeModel articleHomeModel;
     private int currentCurPage = 0;
     private List<ArticleItemData.DataBean.DatasBean>   mArtcileList;
+    private List<BannerData.DataBean>  mBannerList = new ArrayList<>();
     public ArticleHomePresenter(ArticleHomeActivity view) {
         super(view);
         //实例化Model层
         articleHomeModel = new ArticleHomeModel();
-
         }
 
     @Override
@@ -48,7 +48,20 @@ public class ArticleHomePresenter extends BasePresenter<ArticleHomeContract.View
 
     @Override
     public void getBannerData() {
-        articleHomeModel.getBannerData();
+        //定义 Banner数据的回调listener处理
+        ObserverOnNextListener<BannerData> listener = new ObserverOnNextListener<BannerData>() {
+            @Override
+            public void onNext(BannerData bannerData) {
+                Logger.d("加载Banner");
+                mBannerList.addAll(bannerData.getData());
+                getView().showBannerData(bannerData.getData());
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        };
+        articleHomeModel.getBannerData(listener);
     }
 
     @Override

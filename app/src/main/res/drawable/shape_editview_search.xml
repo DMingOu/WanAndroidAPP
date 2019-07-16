@@ -11,7 +11,7 @@
 <!--边框的设置-->
     <stroke
         android:width="20px"
-        android:color="@color/blue" />
+        android:color="@color/green" />
 <!--输入框的内部的颜色-->
     <solid android:color="@color/shallow_white" />
 

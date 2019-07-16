@@ -53,6 +53,8 @@ public class RegisterActivity<P extends IBasePresenter> extends BaseActivity<Pre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        initToolbar();
+        initView();
     }
 
     @Override

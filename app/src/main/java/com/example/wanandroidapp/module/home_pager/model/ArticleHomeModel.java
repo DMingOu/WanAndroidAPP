@@ -1,16 +1,14 @@
-package com.example.wanandroidapp.module.article_home.model;
+package com.example.wanandroidapp.module.home_pager.model;
 
 import com.example.wanandroidapp.app.WanAndroidApp;
 import com.example.wanandroidapp.bean.ArticleItemData;
+import com.example.wanandroidapp.bean.BannerData;
 import com.example.wanandroidapp.core.http.ApiMethods;
 import com.example.wanandroidapp.core.http.ObserverOnNextListener;
 import com.example.wanandroidapp.core.http.TemplateObserver;
-import com.example.wanandroidapp.module.article_home.contract.ArticleHomeContract;
-import com.orhanobut.logger.Logger;
+import com.example.wanandroidapp.module.home_pager.contract.ArticleHomeContract;
 
 import java.util.List;
-
-import io.reactivex.Observer;
 
 /**
  * @author: ODM
@@ -26,7 +24,9 @@ public class ArticleHomeModel implements ArticleHomeContract.Model {
     }
 
     @Override
-    public void getBannerData() {
+    public void getBannerData(ObserverOnNextListener<BannerData> listener) {
+        //网络请求，获取Banner数据
+        ApiMethods.getBannerList(new TemplateObserver<BannerData>(WanAndroidApp.getContext(),listener));
 
     }
 
@@ -38,5 +38,5 @@ public class ArticleHomeModel implements ArticleHomeContract.Model {
     @Override
     public void loadMore(ObserverOnNextListener<ArticleItemData> listener , int curPage) {
         ApiMethods.getArticleList(new TemplateObserver<ArticleItemData>(WanAndroidApp.getContext(),listener),curPage);
-        }
+         }
         }

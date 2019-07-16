@@ -57,7 +57,7 @@
             android:layout_gravity="left"
             android:layout_marginLeft="45dp"
             android:background="@drawable/shape_button_border_line_red"
-            android:onClick="toLogin_User"/>
+            android:onClick="toLoginUser"/>
         <Button
             android:id="@+id/bt_register"
             android:layout_width="130sp"
@@ -67,7 +67,7 @@
             android:layout_marginLeft="50dp"
             android:layout_toRightOf="@+id/bt_login"
             android:background="@drawable/shape_button_border_line_green"
-            android:onClick="toRegister_User"/>
+            android:onClick="toRegisterUser"/>
     </RelativeLayout>
 
     <Button
@@ -82,6 +82,6 @@
         android:textSize="18sp"
         android:textColor="@color/red"
         android:background="@drawable/shape_button_border_line_red"
-        android:onClick="toLogout_User"/>
+        android:onClick="toLogoutUser"/>
 
 </RelativeLayout>

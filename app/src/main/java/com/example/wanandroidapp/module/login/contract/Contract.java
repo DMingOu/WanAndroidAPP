@@ -3,6 +3,9 @@ package com.example.wanandroidapp.module.login.contract;
 import com.example.wanandroidapp.base.model.IModel;
 import com.example.wanandroidapp.base.presenter.IBasePresenter;
 import com.example.wanandroidapp.base.view.IBaseView;
+import com.example.wanandroidapp.bean.ArticleItemData;
+import com.example.wanandroidapp.bean.LoginData;
+import com.example.wanandroidapp.core.http.ObserverOnNextListener;
 
 /**
  * 登录 -- 契约类
@@ -11,7 +14,7 @@ import com.example.wanandroidapp.base.view.IBaseView;
  */
 public interface Contract {
     interface Model extends IModel {
-        public void  getLogin(String userName ,String password);
+        public void  getLogin(ObserverOnNextListener<LoginData> listener , String userName , String password);
     }
 
     interface View extends IBaseView {
