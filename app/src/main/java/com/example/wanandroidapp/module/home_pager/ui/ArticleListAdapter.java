@@ -30,9 +30,8 @@ import butterknife.ButterKnife;
  */
 public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-
     private List<ArticleItemData.DataBean.DatasBean> mArticleList = new ArrayList<>();
-
+    private DaoSession session = ((WanAndroidApp)(WanAndroidApp.getContext())).getDaoSession();
     private ArticleItemData Data;
     private ArticleItemData.DataBean.DatasBean   itemData;
     private ItemClickLitener mItemClickListener;
@@ -130,10 +129,7 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
     /**
      * 定义点击事件的接口
      */
-    public interface ItemClickLitener{
-         void onArticleItemClick(View itemView , int position);
-
-
+    public interface ItemClickLitener {
+        void onArticleItemClick(View itemView, int position);
     }
-
 }

@@ -16,6 +16,14 @@ import com.aserbao.aserbaosandroid.functions.database.greenDao.db.DaoSession;
 public class WanAndroidApp extends Application {
 
     private static Context mContext;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mContext =getApplicationContext();
+        initGreenDao();
+    }
+
     public static  Context getContext(){
         return  mContext;
     }
