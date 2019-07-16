@@ -3,20 +3,15 @@ package com.example.wanandroidapp.module.home_pager.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.request.RequestOptions;
 import com.example.wanandroidapp.R;
-import com.example.wanandroidapp.app.WanAndroidApp;
 import com.example.wanandroidapp.base.presenter.IBasePresenter;
 import com.example.wanandroidapp.base.view.BaseActivity;
 import com.example.wanandroidapp.bean.ArticleItemData;
@@ -26,14 +21,10 @@ import com.example.wanandroidapp.module.home_pager.contract.ArticleHomeContract;
 import com.example.wanandroidapp.module.home_pager.presenter.ArticleHomePresenter;
 import com.example.wanandroidapp.module.search_article.ui.SearchActivity;
 import com.example.wanandroidapp.module.user.UserActivity;
-import com.example.wanandroidapp.util.GlideUtil;
+import com.example.wanandroidapp.util.GlideImageLoader;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.orhanobut.logger.Logger;
-import com.zhengsr.viewpagerlib.anim.MzTransformer;
-import com.zhengsr.viewpagerlib.bean.PageBean;
-import com.zhengsr.viewpagerlib.callback.PageHelperListener;
-import com.zhengsr.viewpagerlib.indicator.ZoomIndicator;
-import com.zhengsr.viewpagerlib.view.BannerViewPager;
+import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ArticleHomeActivity <P extends IBasePresenter> extends BaseActivity<ArticleHomePresenter> implements ArticleHomeContract.View {
+public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<ArticleHomePresenter> implements ArticleHomeContract.View {
 
     @BindView(R.id.tool_bar_home)
     Toolbar toolBarHome;
@@ -49,12 +40,14 @@ public class ArticleHomeActivity <P extends IBasePresenter> extends BaseActivity
     AppBarLayout appbarlayoutMain;
     @BindView(R.id.rv_item_article)
     XRecyclerView xRvArticle;
+    @BindView(R.id.fb_updown)
+    FloatingActionButton fbUpdown;
 
     private List<ArticleItemData.DataBean.DatasBean> articleList = new ArrayList<>();
-    private List<BannerData.DataBean>  mBannerList = new ArrayList<>();
+    private List<String> urls = new ArrayList<>();
     private ArticleListAdapter mArticleAdapter;
-    private ZoomIndicator zoomIndicator = new ZoomIndicator(this,null);
-    private BannerViewPager bannerViewPager = new BannerViewPager(this);
+    private Banner mBanner;
+    private View mView;
 
     @Override
     public ArticleHomePresenter onBindPresenter() {
@@ -70,10 +63,24 @@ public class ArticleHomeActivity <P extends IBasePresenter> extends BaseActivity
         ButterKnife.bind(this);
         //通知P层去获取文章列表数据
         mArticleAdapter = new ArticleListAdapter(articleList);
+
+        mView = View.inflate(this, R.layout.view_banner, null);
         getPresenter().getArticleList();
-        //getPresenter().getBannerData();
+        getPresenter().getBannerData();
         initView();
         initToolbar();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // bannerViewPager.stopAnim();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // bannerViewPager.startAnim();
     }
 
     @Override
@@ -87,12 +94,11 @@ public class ArticleHomeActivity <P extends IBasePresenter> extends BaseActivity
 
     @Override
     protected void initView() {
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         xRvArticle.setLayoutManager(layoutManager);
         xRvArticle.setAdapter(mArticleAdapter);
-
+        //设置列表文章的点击事件--跳转网页
         mArticleAdapter.setRecyclerViewOnItemClickListener(new ArticleListAdapter.ItemClickLitener() {
             @Override
             public void onArticleItemClick(View itemView, int position) {
@@ -117,20 +123,21 @@ public class ArticleHomeActivity <P extends IBasePresenter> extends BaseActivity
                 xRvArticle.loadMoreComplete();
             }
         });
+        fbUpdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xRvArticle.scrollToPosition(0);
+            }
+        });
     }
 
-    public void initBanner(){
-
+    public void initBanner() {
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_home_ariticle;
     }
-
-
-
-
 
     @Override
     protected void initToolbar() {
@@ -142,6 +149,7 @@ public class ArticleHomeActivity <P extends IBasePresenter> extends BaseActivity
         }
 
     }
+
     /**
      * 给标题栏加载menu菜单布局
      *
@@ -175,13 +183,12 @@ public class ArticleHomeActivity <P extends IBasePresenter> extends BaseActivity
                 intentSearch.setClass(ArticleHomeActivity.this, SearchActivity.class);
                 startActivity(intentSearch);
                 break;
-                default:
-                    Logger.d("标题栏按钮点击事件出错");break;
+            default:
+                Logger.d("标题栏按钮点击事件出错");
+                break;
         }
         return true;
     }
-
-
 
 
     @Override
@@ -189,45 +196,17 @@ public class ArticleHomeActivity <P extends IBasePresenter> extends BaseActivity
         return this.mArticleAdapter;
     }
 
-
     @Override
     public void showBannerData(List<BannerData.DataBean> bannerDataList) {
-        mBannerList.addAll(bannerDataList);
-        PageBean bean = new PageBean.Builder<BannerData.DataBean>()
-                .setDataObjects(mBannerList)
-                .setIndicator(zoomIndicator)
-                .builder();
-        //设置banner轮播动画为仿魅族动画
-        bannerViewPager.setPageTransformer(false,new MzTransformer());
-        bannerViewPager.setPageListener(bean, R.layout.item_banner, new PageHelperListener() {
-            @Override
-            public void getItemView(View view, Object data) {
-                //加载banner子项图片
-                View  mView = View.inflate(WanAndroidApp.getContext(),R.layout.activity_home_banner ,null);
-                ImageView imageView =(ImageView) mView.findViewById(R.id.banner_icon);
-                //ImageView  imageView = view.findViewById(R.id.banner_icon);
-                BannerData.DataBean  bannerBean = (BannerData.DataBean) data;
-                RequestOptions options = new RequestOptions()
-                        .placeholder(R.mipmap.loading);
-                GlideUtil.load(ArticleHomeActivity.this,bannerBean.getImagePath(),imageView,options);
-                //设置banner的标题
-                TextView textView = (TextView) mView.findViewById(R.id.banner_text);
-              //  TextView textView = view.findViewById(R.id.banner_text);
-                textView.setText(bannerBean.getTitle());
-                //设置banner的点击事件
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(ArticleHomeActivity.this, ReadActivity.class);
-                        intent.putExtra("url",bannerBean.getUrl() );
-                        intent.putExtra("title",bannerBean.getTitle() );
-                        startActivity(intent);
-                    }
-                });
-            }
-        });
-        //将banner 头布局添加进 XRecyclerView
-        View header =   LayoutInflater.from(this).inflate(R.layout.activity_home_banner, (ViewGroup)findViewById(android.R.id.content),false);
-        xRvArticle.addHeaderView(header);
+        for (BannerData.DataBean dataBean : bannerDataList) {
+
+            Logger.d(dataBean.getImagePath());
+            urls.add(dataBean.getImagePath());
+        }
+        mBanner = (Banner) findViewById(R.id.banner_advtisement1);
+        mBanner.setImageLoader(new GlideImageLoader());
+        mBanner.setImages(urls);
+        mBanner.start();
+
     }
 }

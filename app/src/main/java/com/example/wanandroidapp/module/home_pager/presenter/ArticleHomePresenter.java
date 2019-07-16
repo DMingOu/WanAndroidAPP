@@ -20,7 +20,7 @@ public class ArticleHomePresenter extends BasePresenter<ArticleHomeContract.View
     private ArticleHomeModel articleHomeModel;
     private int currentCurPage = 0;
     private List<ArticleItemData.DataBean.DatasBean>   mArtcileList;
-    private List<BannerData.DataBean>  mBannerList = new ArrayList<>();
+    private List<BannerData.DataBean>  mBannerList ;
     public ArticleHomePresenter(ArticleHomeActivity view) {
         super(view);
         //实例化Model层
@@ -44,21 +44,23 @@ public class ArticleHomePresenter extends BasePresenter<ArticleHomeContract.View
         };
         articleHomeModel.getArticleList(listener,currentCurPage);
         currentCurPage++;
-    };
+    }
 
     @Override
     public void getBannerData() {
+        this.mBannerList = new ArrayList<>();
         //定义 Banner数据的回调listener处理
         ObserverOnNextListener<BannerData> listener = new ObserverOnNextListener<BannerData>() {
             @Override
             public void onNext(BannerData bannerData) {
-                Logger.d("加载Banner");
+                Logger.d("加载Banner  " + bannerData.getData().get(0).getImagePath());
                 mBannerList.addAll(bannerData.getData());
                 getView().showBannerData(bannerData.getData());
             }
 
             @Override
             public void onComplete() {
+
             }
         };
         articleHomeModel.getBannerData(listener);

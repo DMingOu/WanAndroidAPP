@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.aserbao.aserbaosandroid.functions.database.greenDao.db.DaoSession;
 import com.example.wanandroidapp.R;
+import com.example.wanandroidapp.app.WanAndroidApp;
 import com.example.wanandroidapp.bean.ArticleItemData;
 
 import java.util.ArrayList;
@@ -28,7 +30,6 @@ import butterknife.ButterKnife;
  */
 public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-
 
     private List<ArticleItemData.DataBean.DatasBean> mArticleList = new ArrayList<>();
 

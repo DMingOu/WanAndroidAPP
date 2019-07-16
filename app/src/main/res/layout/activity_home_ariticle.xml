@@ -4,12 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
      <android.support.design.widget.AppBarLayout
     android:id="@+id/appbarlayout_main"
@@ -25,7 +25,12 @@
         app:layout_scrollFlags="enterAlways|enterAlways|enterAlways"/>
 
     </android.support.design.widget.AppBarLayout>
-
+        <com.youth.banner.Banner
+            android:layout_below="@id/appbarlayout_main"
+            android:id="@+id/banner_advtisement1"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            />
                 <!--用SwipeRefreshLayout包裹RecyclerView-->
                 <!--<android.support.v4.widget.SwipeRefreshLayout-->
                     <!--android:id="@+id/swipe_refresh_layout_main"-->
@@ -36,13 +41,22 @@
 
                     <!--显示文章列表的布局，采用XRecycleView-->
                     <com.jcodecraeer.xrecyclerview.XRecyclerView
-                        android:layout_below="@id/appbarlayout_main"
+                        android:layout_below="@id/banner_advtisement1"
                         android:id="@+id/rv_item_article"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
 
     <!--</android.support.v4.widget.SwipeRefreshLayout>-->
     </RelativeLayout>
-
+    <android.support.design.widget.FloatingActionButton
+        app:layout_behavior="com.example.wanandroidapp.module.home_pager.ui.ScrollAwareFabBehavior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fb_updown"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/fb_updown"
+        android:elevation="8dp"
+        />
 </android.support.design.widget.CoordinatorLayout>
 

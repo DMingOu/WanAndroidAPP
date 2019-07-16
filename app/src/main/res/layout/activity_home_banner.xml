@@ -1,57 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:zsr="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollview"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="150dp"
+    tools:context=".module.home_pager.ui.ArticleHomeActivity"
     android:orientation="vertical">
 
-
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
-
-
+        android:layout_height="match_parent">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="10dp"
-            android:text="放大版，自动轮播加魅族效果"
-            android:visibility="gone"
-            android:textSize="20sp" />
+            android:layout_height="match_parent"
+            android:text="正在加载...."
+            android:gravity="center"/>
+    </FrameLayout>
 
-        <FrameLayout
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="200dp">
+
+        <com.zhengsr.viewpagerlib.view.BannerViewPager
+            android:id="@+id/recy_banner"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:clipChildren="false">
+            app:banner_isloop="true"
+            app:banner_looptime="3000"
+            app:banner_switchtime="600" />
 
-            <com.zhengsr.viewpagerlib.view.BannerViewPager
-                android:id="@+id/loop_viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:clipChildren="false"
-                zsr:banner_isloop="true"
-                zsr:banner_looptime="3000"
-                zsr:banner_switchtime="600" />
+        <com.zhengsr.viewpagerlib.indicator.TextIndicator
+            android:id="@+id/recy_text_indicator"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="5dp"
+            app:word_circle_color="@color/black"
+            app:word_show_circle="true"
+            app:word_text_color="@color/white"
+            app:word_text_size="14sp"
+            />
+    </FrameLayout>
 
-            <com.zhengsr.viewpagerlib.indicator.ZoomIndicator
-                android:id="@+id/bottom_scale_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="bottom|right"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                zsr:zoom_alpha_min="0.5"
-                zsr:zoom_leftmargin="10dp"
-                zsr:zoom_max="1.5"
-                zsr:zoom_selector="@drawable/shape_bottom_circle_banner" />
-
-
-        </FrameLayout>
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

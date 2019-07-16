@@ -10,6 +10,15 @@
     <string name="notice_sreach">搜索关键词以空格形式隔开</string>
     <string name="toLogin">已有账号？快返回登录页面吧!</string>
     <string name="toRegister">还没有账号？快来注册一个吧</string>
+    <string name="title_activity_login2222">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
     <!-- Strings related to login -->
     <!--<string name="prompt_email">Email</string>-->
     <!--<string name="prompt_password">Password (optional)</string>-->
