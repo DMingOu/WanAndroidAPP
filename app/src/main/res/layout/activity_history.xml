@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbarlayout_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tool_bar_history"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:titleTextColor="@color/white"
+                app:theme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_scrollFlags="enterAlways|enterAlways|enterAlways"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <ImageView
+            android:layout_below="@id/appbarlayout_history"
+            android:id="@+id/iv_noRecord"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:src = "@mipmap/nothing128"
+            />
+        <TextView
+            android:id="@+id/tv_noRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_noRecord"
+            android:text="当前本机没有文章阅读记录"
+            android:layout_centerHorizontal="true"
+            android:textSize="30sp"
+            />
+
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/xrv_article_history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appbarlayout_history"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>

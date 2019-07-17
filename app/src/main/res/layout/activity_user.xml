@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:titleTextColor="@color/white"
+            app:titleMarginStart="122dp"
             app:theme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_scrollFlags="enterAlways|enterAlways|enterAlways"/>
 
@@ -84,4 +85,61 @@
         android:background="@drawable/shape_button_border_line_red"
         android:onClick="toLogoutUser"/>
 
-</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_login_name"
+        android:layout_marginTop="130dp">
+
+        <TableLayout
+            android:id="@+id/MorePageTableLayout_Favorite"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="0"
+            android:stretchColumns="0" >
+            <View
+                style="@style/bg_line"
+                android:layout_height="0.5dp"
+                android:layout_width="match_parent"
+                android:layout_above="@id/MorePageTableLayout_Favorite"/>
+            <TableRow
+                android:id="@+id/more_page_row0"
+                android:layout_width="fill_parent"
+                android:layout_marginLeft="2.0dip"
+                android:layout_marginRight="2.0dip"
+                android:paddingBottom="16.0dip"
+                android:paddingTop="8.0dip" >
+            <TextView
+                android:id="@+id/tv_history"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="历史记录"
+                android:textColor="#ff333333"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/iv_history_enter"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:gravity="center_vertical"
+                android:paddingRight="20.0dip"
+                android:src="@mipmap/arrow_enter_right" />
+
+
+             </TableRow>
+            <View
+                style="@style/bg_line"
+                android:layout_height="0.5dp"
+                android:layout_width="match_parent"/>
+        </TableLayout>
+    </LinearLayout>
+
+
+
+    </RelativeLayout>

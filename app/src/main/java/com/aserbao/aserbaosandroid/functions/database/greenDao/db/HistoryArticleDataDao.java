@@ -15,7 +15,7 @@ import com.example.wanandroidapp.bean.HistoryArticleData;
 /** 
  * DAO for table "HISTORY_ARTICLE_DATA".
 */
-public class HistoryArticleDataDao extends AbstractDao<HistoryArticleData, Void> {
+public class HistoryArticleDataDao extends AbstractDao<HistoryArticleData, Long> {
 
     public static final String TABLENAME = "HISTORY_ARTICLE_DATA";
 
@@ -24,11 +24,12 @@ public class HistoryArticleDataDao extends AbstractDao<HistoryArticleData, Void>
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Title = new Property(0, String.class, "title", false, "TITLE");
-        public final static Property Url = new Property(1, String.class, "url", false, "URL");
-        public final static Property LastTime = new Property(2, String.class, "lastTime", false, "LAST_TIME");
-        public final static Property Id = new Property(3, int.class, "id", false, "ID");
-        public final static Property Author = new Property(4, String.class, "author", false, "AUTHOR");
+        public final static Property ID = new Property(0, Long.class, "ID", true, "_id");
+        public final static Property Title = new Property(1, String.class, "title", false, "TITLE");
+        public final static Property Url = new Property(2, String.class, "url", false, "URL");
+        public final static Property LastTime = new Property(3, String.class, "lastTime", false, "LAST_TIME");
+        public final static Property Id = new Property(4, int.class, "id", false, "ID");
+        public final static Property Author = new Property(5, String.class, "author", false, "AUTHOR");
     }
 
 
@@ -44,11 +45,12 @@ public class HistoryArticleDataDao extends AbstractDao<HistoryArticleData, Void>
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"HISTORY_ARTICLE_DATA\" (" + //
-                "\"TITLE\" TEXT," + // 0: title
-                "\"URL\" TEXT," + // 1: url
-                "\"LAST_TIME\" TEXT," + // 2: lastTime
-                "\"ID\" INTEGER NOT NULL ," + // 3: id
-                "\"AUTHOR\" TEXT);"); // 4: author
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: ID
+                "\"TITLE\" TEXT UNIQUE ," + // 1: title
+                "\"URL\" TEXT," + // 2: url
+                "\"LAST_TIME\" TEXT," + // 3: lastTime
+                "\"ID\" INTEGER NOT NULL ," + // 4: id
+                "\"AUTHOR\" TEXT);"); // 5: author
     }
 
     /** Drops the underlying database table. */
@@ -61,25 +63,30 @@ public class HistoryArticleDataDao extends AbstractDao<HistoryArticleData, Void>
     protected final void bindValues(DatabaseStatement stmt, HistoryArticleData entity) {
         stmt.clearBindings();
  
+        Long ID = entity.getID();
+        if (ID != null) {
+            stmt.bindLong(1, ID);
+        }
+ 
         String title = entity.getTitle();
         if (title != null) {
-            stmt.bindString(1, title);
+            stmt.bindString(2, title);
         }
  
         String url = entity.getUrl();
         if (url != null) {
-            stmt.bindString(2, url);
+            stmt.bindString(3, url);
         }
  
         String lastTime = entity.getLastTime();
         if (lastTime != null) {
-            stmt.bindString(3, lastTime);
+            stmt.bindString(4, lastTime);
         }
-        stmt.bindLong(4, entity.getId());
+        stmt.bindLong(5, entity.getId());
  
         String author = entity.getAuthor();
         if (author != null) {
-            stmt.bindString(5, author);
+            stmt.bindString(6, author);
         }
     }
 
@@ -87,69 +94,79 @@ public class HistoryArticleDataDao extends AbstractDao<HistoryArticleData, Void>
     protected final void bindValues(SQLiteStatement stmt, HistoryArticleData entity) {
         stmt.clearBindings();
  
+        Long ID = entity.getID();
+        if (ID != null) {
+            stmt.bindLong(1, ID);
+        }
+ 
         String title = entity.getTitle();
         if (title != null) {
-            stmt.bindString(1, title);
+            stmt.bindString(2, title);
         }
  
         String url = entity.getUrl();
         if (url != null) {
-            stmt.bindString(2, url);
+            stmt.bindString(3, url);
         }
  
         String lastTime = entity.getLastTime();
         if (lastTime != null) {
-            stmt.bindString(3, lastTime);
+            stmt.bindString(4, lastTime);
         }
-        stmt.bindLong(4, entity.getId());
+        stmt.bindLong(5, entity.getId());
  
         String author = entity.getAuthor();
         if (author != null) {
-            stmt.bindString(5, author);
+            stmt.bindString(6, author);
         }
     }
 
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public HistoryArticleData readEntity(Cursor cursor, int offset) {
         HistoryArticleData entity = new HistoryArticleData( //
-            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // title
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // url
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // lastTime
-            cursor.getInt(offset + 3), // id
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // author
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // ID
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // title
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // url
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // lastTime
+            cursor.getInt(offset + 4), // id
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // author
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, HistoryArticleData entity, int offset) {
-        entity.setTitle(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setUrl(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setLastTime(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setId(cursor.getInt(offset + 3));
-        entity.setAuthor(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setID(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setTitle(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setUrl(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setLastTime(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setId(cursor.getInt(offset + 4));
+        entity.setAuthor(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
      }
     
     @Override
-    protected final Void updateKeyAfterInsert(HistoryArticleData entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected final Long updateKeyAfterInsert(HistoryArticleData entity, long rowId) {
+        entity.setID(rowId);
+        return rowId;
     }
     
     @Override
-    public Void getKey(HistoryArticleData entity) {
-        return null;
+    public Long getKey(HistoryArticleData entity) {
+        if(entity != null) {
+            return entity.getID();
+        } else {
+            return null;
+        }
     }
 
     @Override
     public boolean hasKey(HistoryArticleData entity) {
-        // TODO
-        return false;
+        return entity.getID() != null;
     }
 
     @Override

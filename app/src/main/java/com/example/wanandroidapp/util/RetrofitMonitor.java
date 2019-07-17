@@ -1,4 +1,4 @@
-package com.example.wanandroidapp.util.retrofitUtil;
+package com.example.wanandroidapp.util;
 
 import com.example.wanandroidapp.core.http.ApiService;
 

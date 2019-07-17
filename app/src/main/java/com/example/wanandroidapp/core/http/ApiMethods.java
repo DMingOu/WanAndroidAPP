@@ -4,7 +4,7 @@ import com.example.wanandroidapp.bean.ArticleItemData;
 import com.example.wanandroidapp.bean.BannerData;
 import com.example.wanandroidapp.bean.LoginData;
 import com.example.wanandroidapp.bean.RegisterData;
-import com.example.wanandroidapp.util.retrofitUtil.RetrofitMonitor;
+import com.example.wanandroidapp.util.RetrofitMonitor;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;

@@ -1,11 +1,13 @@
 package com.example.wanandroidapp.module.login.presenter;
 
+import com.example.wanandroidapp.app.WanAndroidApp;
 import com.example.wanandroidapp.base.presenter.BasePresenter;
 import com.example.wanandroidapp.bean.LoginData;
 import com.example.wanandroidapp.core.http.ObserverOnNextListener;
 import com.example.wanandroidapp.module.login.contract.Contract;
 import com.example.wanandroidapp.module.login.model.Model;
 import com.example.wanandroidapp.module.login.ui.LoginActivity;
+import com.example.wanandroidapp.util.SharedPreferencesUtil;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -31,6 +33,8 @@ public class Presenter extends BasePresenter<Contract.View> implements Contract.
                 //根据M层返回的结果，Toast提醒+errorMsg，成功的话调用 V 层 的loginSuccess方法
                 if (loginData.getErrorCode() == 0) {
                     getView().loginSuccess(loginData.getErrorMsg());
+                    //登录成功后将用户名和密码存储在本机上
+                    SharedPreferencesUtil.saveLoginSharedPreferences(WanAndroidApp.getContext(),userName,password);
                 } else {
                     getView().loginFailure(loginData.getErrorMsg());
                 }

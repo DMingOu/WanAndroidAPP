@@ -14,7 +14,7 @@
             android:id="@+id/tool_bar_register"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:titleTextColor="@color/white"
+            app:titleTextColor="@color/page_white"
             app:titleMarginStart="121dp"
             app:theme="@style/ThemeOverlay.AppCompat.Light" />
 
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:hint="@string/username"
-                android:inputType="" />
+                />
 
         </android.support.design.widget.TextInputLayout>
 

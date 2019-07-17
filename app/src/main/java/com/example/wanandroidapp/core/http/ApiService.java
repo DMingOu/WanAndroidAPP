@@ -1,6 +1,5 @@
 package com.example.wanandroidapp.core.http;
 
-import com.example.wanandroidapp.base.BaseResponse;
 import com.example.wanandroidapp.bean.ArticleItemData;
 import com.example.wanandroidapp.bean.BannerData;
 import com.example.wanandroidapp.bean.LoginData;

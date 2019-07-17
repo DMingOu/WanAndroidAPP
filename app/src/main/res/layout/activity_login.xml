@@ -14,7 +14,7 @@
             android:id="@+id/tool_bar_login"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:titleTextColor="@color/shallow_white"
+            app:titleTextColor="@color/white"
             app:titleMarginStart="121dp"
             app:theme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_scrollFlags="enterAlways|enterAlways|enterAlways"/>

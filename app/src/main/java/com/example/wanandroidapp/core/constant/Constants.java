@@ -15,6 +15,12 @@ public class Constants {
     public static final String  PASSWORD   =  "password" ;
     public static final String  LOGIN_STATUS  =  "login_status" ;
 
+    public static final String LOGIN = "Login";
+
+    //启动页动画
+    public static final int ANIM_TIME = 2000;
+
+    public static final float SCALE_END = 1.15F;
 
 
 }
