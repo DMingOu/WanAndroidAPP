@@ -81,6 +81,7 @@ public class ArticleHomePresenter extends BasePresenter<ArticleHomeContract.View
             public void onComplete() {
                 //刷新适配器里的数据
                 getView().getmArticleAdapter().notifyDataSetChanged();
+                getView().getxRvArticle().refreshComplete();
             }
         };
         articleHomeModel.refresh(listener,currentCurPage);
@@ -100,6 +101,7 @@ public class ArticleHomePresenter extends BasePresenter<ArticleHomeContract.View
             public void onComplete() {
                 //刷新适配器里的数据
                 getView().getmArticleAdapter().setData(mArtcileList);
+                getView().getxRvArticle().loadMoreComplete();
             }
         };
         articleHomeModel.loadMore(listener,currentCurPage);

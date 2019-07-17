@@ -22,6 +22,7 @@ import com.example.wanandroidapp.module.home_pager.presenter.ArticleHomePresente
 import com.example.wanandroidapp.module.search_article.ui.SearchActivity;
 import com.example.wanandroidapp.module.user.UserActivity;
 import com.example.wanandroidapp.util.GlideImageLoader;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
@@ -38,6 +39,9 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
     Toolbar toolBarHome;
     @BindView(R.id.appbarlayout_main)
     AppBarLayout appbarlayoutMain;
+
+
+
     @BindView(R.id.rv_item_article)
     XRecyclerView xRvArticle;
     @BindView(R.id.fb_updown)
@@ -98,6 +102,8 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         xRvArticle.setLayoutManager(layoutManager);
         xRvArticle.setAdapter(mArticleAdapter);
+        xRvArticle.setRefreshProgressStyle(ProgressStyle.TriangleSkewSpin);
+        xRvArticle.setLoadingMoreProgressStyle(ProgressStyle.BallClipRotate);
         //设置列表文章的点击事件--跳转网页
         mArticleAdapter.setRecyclerViewOnItemClickListener(new ArticleListAdapter.ItemClickLitener() {
             @Override
@@ -113,14 +119,14 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
             public void onRefresh() {
                 //refresh data here
                 getPresenter().refresh();
-                xRvArticle.refreshComplete();
+                //xRvArticle.refreshComplete();
             }
 
             @Override
             public void onLoadMore() {
                 // load more data here
                 getPresenter().loadMore();
-                xRvArticle.loadMoreComplete();
+                //xRvArticle.loadMoreComplete();
             }
         });
         fbUpdown.setOnClickListener(new View.OnClickListener() {
@@ -208,5 +214,9 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
         mBanner.setImages(urls);
         mBanner.start();
 
+    }
+    @Override
+    public XRecyclerView getxRvArticle() {
+        return xRvArticle;
     }
 }

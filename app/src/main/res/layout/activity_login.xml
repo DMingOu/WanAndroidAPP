@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:titleTextColor="@color/white"
-            app:titleMarginStart="121dp"
+            app:titleMarginStart="120dp"
             app:theme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_scrollFlags="enterAlways|enterAlways|enterAlways"/>
 
@@ -29,6 +29,7 @@
         android:src="@mipmap/key_loginactivity_128"/>
 
     <LinearLayout
+        android:id="@+id/ll_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -66,14 +67,14 @@
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/bt_login"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/login"
@@ -85,13 +86,15 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/toRegister"
-            android:textSize="15sp"
-            android:layout_marginStart="140dp"
-            android:layout_marginTop="10dp"/>
+
     </LinearLayout>
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/toRegister"
+        android:textSize="15sp"
+        android:layout_alignRight="@id/ll_login"
+        android:layout_below="@id/ll_login"
+        />
 </RelativeLayout>

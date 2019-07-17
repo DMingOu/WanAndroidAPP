@@ -7,6 +7,7 @@ import com.example.wanandroidapp.bean.ArticleItemData;
 import com.example.wanandroidapp.bean.BannerData;
 import com.example.wanandroidapp.core.http.ObserverOnNextListener;
 import com.example.wanandroidapp.module.home_pager.ui.ArticleListAdapter;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
@@ -57,6 +58,8 @@ public interface ArticleHomeContract {
         void showBannerData(List<BannerData.DataBean> bannerDataList);
 
          ArticleListAdapter getmArticleAdapter();
+
+         XRecyclerView getxRvArticle();
     }
 
 
