@@ -105,7 +105,7 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
         xRvArticle.setRefreshProgressStyle(ProgressStyle.TriangleSkewSpin);
         xRvArticle.setLoadingMoreProgressStyle(ProgressStyle.BallClipRotate);
         //设置列表文章的点击事件--跳转网页
-        mArticleAdapter.setRecyclerViewOnItemClickListener(new ArticleListAdapter.ItemClickLitener() {
+        mArticleAdapter.setRecyclerViewOnItemClickListener(new ArticleListAdapter.ItemClickListener() {
             @Override
             public void onArticleItemClick(View itemView, int position) {
                 Intent intent = new Intent(ArticleHomeActivity.this, ReadActivity.class);

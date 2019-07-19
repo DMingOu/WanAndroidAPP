@@ -49,7 +49,11 @@ public class Presenter extends BasePresenter<Contract.View> implements Contract.
             }
             @Override
             public void onComplete() {
-                getView().getmArticleAdapter().setData(mArtcileList);
+                if(mArtcileList.size() >= 1) {
+                    getView().searchSuccess(mArtcileList);
+                } else {
+                    getView().searchFailure();
+                }
             }
         };
         modelSearch.getArticleListSearch(searchListener,currentPage,keyword);

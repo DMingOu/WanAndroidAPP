@@ -18,6 +18,6 @@ public class GlideImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
         RequestOptions options = new RequestOptions().placeholder(R.mipmap.loading);
-        GlideUtil.load(context,(String)path,imageView,options);
+        GlideUtil.loadImgUrl(context,(String)path,imageView,options);
     }
 }

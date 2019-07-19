@@ -11,8 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.aserbao.aserbaosandroid.functions.database.greenDao.db.DaoSession;
+import com.aserbao.aserbaosandroid.functions.database.greenDao.db.HistoryArticleDataDao;
 import com.example.wanandroidapp.R;
+import com.example.wanandroidapp.app.WanAndroidApp;
 import com.example.wanandroidapp.bean.ArticleItemData;
+import com.example.wanandroidapp.bean.HistoryArticleData;
+import com.example.wanandroidapp.util.TimeUtil;
+import com.orhanobut.logger.Logger;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +41,7 @@ public class SearchArticleListAdapter extends RecyclerView.Adapter<RecyclerView.
     private ArticleItemData Data;
     private ArticleItemData.DataBean.DatasBean   itemData;
     private SearchArticleListAdapter.ItemClickLitener mItemClickListener;
-
+    private DaoSession daoSession = ((WanAndroidApp)(WanAndroidApp.getContext())).getDaoSession();
     public SearchArticleListAdapter(List <ArticleItemData.DataBean.DatasBean> ArticleList) {
         mArticleList = ArticleList;
     }
@@ -75,6 +83,7 @@ public class SearchArticleListAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof SearchArticleListAdapter.ItemArticleViewHolder){
+
             itemData = mArticleList.get(position);
             ((SearchArticleListAdapter.ItemArticleViewHolder) holder).tvTitle.setText(Html.fromHtml(itemData.getTitle()));
             ((SearchArticleListAdapter.ItemArticleViewHolder) holder).tvTime.setText(itemData.getNiceDate());
@@ -87,12 +96,34 @@ public class SearchArticleListAdapter extends RecyclerView.Adapter<RecyclerView.
             //设置Tag 方便进行点击事件数据的处理
             ((SearchArticleListAdapter.ItemArticleViewHolder) holder).cvItemArticle.setTag(position);
         }
+        QueryBuilder<HistoryArticleData> qb = daoSession.queryBuilder(HistoryArticleData.class);
+        QueryBuilder<HistoryArticleData> historyArticleDataQueryBuilder = qb.where(HistoryArticleDataDao.Properties.Id
+                .eq(itemData.getId())).orderAsc(HistoryArticleDataDao.Properties.Id);
+        List<HistoryArticleData> list = historyArticleDataQueryBuilder.list();
+        if (holder instanceof ItemArticleViewHolder) {
+            //数据库有相同的标题（读过的)，设置为灰色，否则设置为黑色
+            if(list.size() != 0){
+                //灰色
+                ((ItemArticleViewHolder) holder).tvTitle.setTextColor(Color.parseColor("#999999"));
+            }  else {
+                //黑色
+                ((ItemArticleViewHolder) holder).tvTitle.setTextColor(Color.parseColor("#000000"));
+            }
+        }
         //若文章已被点击，则被设为灰色已读
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //int position = holder.getLayoutPosition();
+                itemData = mArticleList.get(position);
+                HistoryArticleData history = new HistoryArticleData();
+                history.setAuthor(itemData.getAuthor());
+                history.setId(itemData.getId());
+                history.setUrl(itemData.getLink());
+                history.setTitle(itemData.getTitle());
+                history.setLastTime(TimeUtil.showCurrentTime(System.currentTimeMillis()));
                 itemData.setClicked(true);
+                daoSession.insertOrReplace(history);
+                Logger.d("当前position" + position+"历史点击文章的标题"+history.getTitle()+"    list的大小" + list.size());
                 if (holder instanceof SearchArticleListAdapter.ItemArticleViewHolder) {
                     ((SearchArticleListAdapter.ItemArticleViewHolder) holder).tvTitle.setTextColor(Color.parseColor("#999999"));//灰色
                 }

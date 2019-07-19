@@ -7,6 +7,8 @@ import com.example.wanandroidapp.bean.ArticleItemData;
 import com.example.wanandroidapp.core.http.ObserverOnNextListener;
 import com.example.wanandroidapp.module.search_article.ui.SearchArticleListAdapter;
 
+import java.util.List;
+
 /**
  * The interface Contract.
  *
@@ -40,6 +42,10 @@ public interface Contract {
          * @return the article adapter
          */
         SearchArticleListAdapter getmArticleAdapter();
+
+        void    searchSuccess(List<ArticleItemData.DataBean.DatasBean> mArtcileList);
+
+        void    searchFailure();
     }
 
     /**

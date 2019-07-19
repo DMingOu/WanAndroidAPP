@@ -21,6 +21,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
+        android:id="@+id/ll_searchInputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -46,5 +47,15 @@
         android:id="@+id/rv_article_search"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         />
+    <TextView
+        android:id="@+id/tv_noResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_searchInputText"
+        android:text="无结果,建议更换正确的关键词重新搜索"
+        android:layout_gravity="center_horizontal"
+        android:textSize="22sp"
+        android:visibility="invisible"/>
 </LinearLayout>

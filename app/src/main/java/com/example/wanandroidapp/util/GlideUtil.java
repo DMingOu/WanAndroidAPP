@@ -14,7 +14,7 @@ import com.orhanobut.logger.Logger;
 
     public class GlideUtil {
         //load方法，通过参数和RequestOptions对象实现加载图片
-        public static void load(Context context,
+        public static void loadImgUrl(Context context,
                                 Object url,
                                 ImageView imageView,
                                 RequestOptions options) {
@@ -24,6 +24,16 @@ import com.orhanobut.logger.Logger;
                     .apply(options)
                     .into(imageView);
         }
+    public static void loadResPath(Context context,
+                                  Object url,
+                                  ImageView imageView,
+                                  RequestOptions options) {
+        Logger.d("Glide加载图片url" + url);
+        Glide.with(context)
+                .load((Integer) url)
+                .apply(options)
+                .into(imageView);
+    }
 
 
 }

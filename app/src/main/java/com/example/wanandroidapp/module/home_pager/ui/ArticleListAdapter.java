@@ -40,7 +40,7 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
     private DaoSession daoSession = ((WanAndroidApp)(WanAndroidApp.getContext())).getDaoSession();
 
     private ArticleItemData.DataBean.DatasBean   itemData;
-    private ItemClickLitener mItemClickListener;
+    private ItemClickListener mItemClickListener;
 
     public ArticleListAdapter(List <ArticleItemData.DataBean.DatasBean> ArticleList) {
         mArticleList = ArticleList;
@@ -102,9 +102,11 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof ItemArticleViewHolder) {
             //数据库有相同的标题（读过的)，设置为灰色，否则设置为黑色
             if(list.size() != 0){
-                ((ItemArticleViewHolder) holder).tvTitle.setTextColor(Color.parseColor("#999999"));//灰色
+                //灰色
+                ((ItemArticleViewHolder) holder).tvTitle.setTextColor(Color.parseColor("#999999"));
             }  else {
-                ((ItemArticleViewHolder) holder).tvTitle.setTextColor(Color.parseColor("#000000"));//黑色
+                //黑色
+                ((ItemArticleViewHolder) holder).tvTitle.setTextColor(Color.parseColor("#000000"));
             }
         }
         //若文章已被点击，则被设为灰色已读
@@ -112,6 +114,7 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
             @Override
             public void onClick(View view) {
                 //int position = holder.getLayoutPosition();
+                itemData = mArticleList.get(position);
                 itemData.setClicked(true);
                 //将点击阅读的文章数据存入数据库,更新本次阅读的时间
                     HistoryArticleData history = new HistoryArticleData();
@@ -120,7 +123,6 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
                     history.setUrl(itemData.getLink());
                     history.setTitle(itemData.getTitle());
                     history.setLastTime(TimeUtil.showCurrentTime(System.currentTimeMillis()));
-                Logger.d("已点击文章的标题"+history.getTitle()+"    list的大小" + list.size());
                     daoSession.insertOrReplace(history);
                 ((ItemArticleViewHolder) holder).tvTitle.setTextColor(Color.parseColor("#999999"));//灰色
                 if (mItemClickListener != null) {
@@ -147,14 +149,14 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
      * 设置适配器的监听事件并初始化
      * @param onArticleItemClickListener
      */
-    public void setRecyclerViewOnItemClickListener(ItemClickLitener onArticleItemClickListener) {
+    public void setRecyclerViewOnItemClickListener(ItemClickListener onArticleItemClickListener) {
         this.mItemClickListener = onArticleItemClickListener;
     }
 
     /**
      * 定义点击事件的接口
      */
-    public interface ItemClickLitener {
+    public interface ItemClickListener {
         void onArticleItemClick(View itemView, int position);
     }
 }

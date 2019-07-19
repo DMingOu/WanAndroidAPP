@@ -13,10 +13,13 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.example.wanandroidapp.R;
+import com.example.wanandroidapp.app.WanAndroidApp;
 import com.example.wanandroidapp.module.login.ui.LoginActivity;
 import com.example.wanandroidapp.module.register.ui.RegisterActivity;
 import com.example.wanandroidapp.module.user.history.ui.HistoryActivity;
+import com.example.wanandroidapp.util.GlideUtil;
 import com.example.wanandroidapp.util.SharedPreferencesUtil;
 import com.orhanobut.logger.Logger;
 
@@ -76,15 +79,22 @@ public class UserActivity extends AppCompatActivity {
     protected void initView() {
         HashMap<String,String> userInfo = SharedPreferencesUtil.getLoginSharedPreferences(this);
         String userName = userInfo.get("loginUserName");
+        RequestOptions options = new RequestOptions()
+                .override(200, 200);
+
+        //如果尚未登录就显示登录与注册按钮
         if("".equals(userName)){
             btLogin.setVisibility(View.VISIBLE);
             btnRegister.setVisibility(View.VISIBLE);
             btnLogout.setVisibility(View.INVISIBLE);
+            GlideUtil.loadResPath(WanAndroidApp.getContext(),R.mipmap.notlogin,ivUser,options);
         } else {
             btLogin.setVisibility(View.GONE);
             btnRegister.setVisibility(View.GONE);
             btnLogout.setVisibility(View.VISIBLE);
             tvLoginName.setText("欢迎来到玩安卓 " +"\n"+ userName);
+            GlideUtil.loadResPath(WanAndroidApp.getContext(),R.mipmap.android_useractivity_128,ivUser,options);
+
         }
 
         ivHistoryEnter.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +105,7 @@ public class UserActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     /**

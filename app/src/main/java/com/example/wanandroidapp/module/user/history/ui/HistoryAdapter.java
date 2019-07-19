@@ -67,8 +67,15 @@ public class HistoryAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        //让最新的阅读记录出现在最前面
+        int pos;
+        if(getItemCount() > 0) {
+            pos = getItemCount() - position - 1;
+        } else {
+            pos = 0;
+        }
         if(holder instanceof HistoryViewHolder) {
-            HistoryArticleData itemData = mHistoryDataList.get(position);
+            HistoryArticleData itemData = mHistoryDataList.get(pos);
             ((HistoryViewHolder) holder).tvTitle.setText(Html.fromHtml(itemData.getTitle()));
             ((HistoryViewHolder) holder).tvAuthor.setText(itemData.getAuthor());
             ((HistoryViewHolder) holder).tvTime.setText("上次阅读时间:"+ itemData.getLastTime() );
@@ -80,12 +87,12 @@ public class HistoryAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 if(holder instanceof  HistoryViewHolder) {
                     ((HistoryViewHolder) holder).tvTime.setText(TimeUtil.showCurrentTime(System.currentTimeMillis()));
                 }
-                HistoryArticleData  itemHistory = mHistoryDataList.get(position);
+                HistoryArticleData  itemHistory = mHistoryDataList.get(pos);
                 itemHistory.setLastTime(TimeUtil.showCurrentTime(System.currentTimeMillis()));
                 Logger.d(" item标题"+ itemHistory.getTitle()+"   作者" + itemHistory.getAuthor()+"   time "+itemHistory.getLastTime());
                 daoSession.update(itemHistory);
                 if (mItemClickListener != null) {
-                    mItemClickListener.onArticleItemClick(v, position);
+                    mItemClickListener.onArticleItemClick(v, pos);
                 }
             }
 
