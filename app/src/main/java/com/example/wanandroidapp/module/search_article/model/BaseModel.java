@@ -14,7 +14,7 @@ import com.example.wanandroidapp.module.search_article.contract.Contract;
  * @author: ODM
  * @date: 2019/7/13
  */
-public class Model implements Contract.Model {
+public class BaseModel implements Contract.BaseModel {
     @Override
     public void getArticleListSearch(ObserverOnNextListener<ArticleItemData> listener, int curPage, String keyword) {
         ApiMethods.doSearch(new TemplateObserver<ArticleItemData>(WanAndroidApp.getContext(),listener),curPage,keyword);

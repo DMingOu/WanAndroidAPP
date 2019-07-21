@@ -4,7 +4,7 @@ import com.example.wanandroidapp.base.presenter.BasePresenter;
 import com.example.wanandroidapp.bean.RegisterData;
 import com.example.wanandroidapp.core.http.ObserverOnNextListener;
 import com.example.wanandroidapp.module.register.contract.Contract;
-import com.example.wanandroidapp.module.register.model.Model;
+import com.example.wanandroidapp.module.register.model.BaseModel;
 import com.example.wanandroidapp.module.register.ui.RegisterActivity;
 import com.orhanobut.logger.Logger;
 
@@ -14,11 +14,11 @@ import com.orhanobut.logger.Logger;
  */
 public class Presenter extends BasePresenter<Contract.View> implements Contract.Presenter {
 
-    private Model registerModel;
+    private BaseModel registerModel;
 
     public Presenter(RegisterActivity registerActivity){
         super(registerActivity);
-        registerModel = new Model();
+        registerModel = new BaseModel();
     }
     @Override
     public void toRegister(String userName, String password, String rePassword) {

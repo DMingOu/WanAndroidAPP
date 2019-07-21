@@ -1,6 +1,6 @@
 package com.example.wanandroidapp.module.search_article.contract;
 
-import com.example.wanandroidapp.base.model.IModel;
+import com.example.wanandroidapp.base.model.IBaseModel;
 import com.example.wanandroidapp.base.presenter.IBasePresenter;
 import com.example.wanandroidapp.base.view.IBaseView;
 import com.example.wanandroidapp.bean.ArticleItemData;
@@ -19,7 +19,7 @@ public interface Contract {
     /**
      * The interface Model.
      */
-    interface Model extends IModel {
+    interface BaseModel extends IBaseModel {
 
         /**
          * Gets article list search.

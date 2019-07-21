@@ -38,10 +38,11 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context mContext;
     private List<ArticleItemData.DataBean.DatasBean> mArticleList = new ArrayList<>();
     private DaoSession daoSession = ((WanAndroidApp)(WanAndroidApp.getContext())).getDaoSession();
-
+    private  View mHeadView;
     private ArticleItemData.DataBean.DatasBean   itemData;
     private ItemClickListener mItemClickListener;
-
+    private static final int ITEM_TYPE_HEADER = 0;
+    public static final int ITEM_TYPE_NORMAL = 1;
     public ArticleListAdapter(List <ArticleItemData.DataBean.DatasBean> ArticleList) {
         mArticleList = ArticleList;
     }
@@ -69,19 +70,36 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    //顶部加载布局Holder--轮播图
+    public class HeaderViewHolder extends RecyclerView.ViewHolder{
+
+        private HeaderViewHolder(View view) {
+            super(view);
+            return;
+        }
+    }
+
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(mContext == null) {
+        if (mContext == null) {
             mContext = parent.getContext();
         }
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_article,parent,false);
-        return new ItemArticleViewHolder(itemView);
+        if (viewType == ITEM_TYPE_HEADER) {
+            return new HeaderViewHolder(mHeadView);
+        } else {
+            View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_article, parent, false);
+            return new ItemArticleViewHolder(itemView);
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof  HeaderViewHolder) {
+            return;
+        }
+
         if(holder instanceof  ItemArticleViewHolder){
             itemData = mArticleList.get(position);
             ((ItemArticleViewHolder) holder).tvTitle.setText(Html.fromHtml(itemData.getTitle()));
@@ -113,7 +131,6 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //int position = holder.getLayoutPosition();
                 itemData = mArticleList.get(position);
                 itemData.setClicked(true);
                 //将点击阅读的文章数据存入数据库,更新本次阅读的时间
@@ -140,6 +157,16 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
         return  mArticleList.size();
     }
 
+    //根据不同位置判断view的种类，返回不同的值
+    @Override
+    public int getItemViewType(int position) {
+        if(position == 0 && mHeadView != null) {
+            return ITEM_TYPE_HEADER;
+        }else {
+            return ITEM_TYPE_NORMAL;
+        }
+    }
+
     public void setData(List<ArticleItemData.DataBean.DatasBean> mData) {
         this.mArticleList = mData;
         notifyDataSetChanged();//通知更新
@@ -158,5 +185,16 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
      */
     public interface ItemClickListener {
         void onArticleItemClick(View itemView, int position);
+    }
+
+
+    /**
+     * 插入顶部头布局
+     * @param headerView
+     */
+    public void setHeaderView(View headerView) {
+        mHeadView = headerView;
+        notifyItemInserted(0);
+        notifyDataSetChanged();
     }
 }

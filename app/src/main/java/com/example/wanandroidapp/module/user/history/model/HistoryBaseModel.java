@@ -14,7 +14,7 @@ import java.util.List;
  * @author: ODM
  * @date: 2019/7/17
  */
-public class HistoryModel implements HistoryContract.Model {
+public class HistoryBaseModel implements HistoryContract.BaseModel {
 
 
     @Override

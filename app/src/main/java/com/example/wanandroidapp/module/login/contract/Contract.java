@@ -1,9 +1,8 @@
 package com.example.wanandroidapp.module.login.contract;
 
-import com.example.wanandroidapp.base.model.IModel;
+import com.example.wanandroidapp.base.model.IBaseModel;
 import com.example.wanandroidapp.base.presenter.IBasePresenter;
 import com.example.wanandroidapp.base.view.IBaseView;
-import com.example.wanandroidapp.bean.ArticleItemData;
 import com.example.wanandroidapp.bean.LoginData;
 import com.example.wanandroidapp.core.http.ObserverOnNextListener;
 
@@ -13,7 +12,7 @@ import com.example.wanandroidapp.core.http.ObserverOnNextListener;
  * @date: 2019/7/13
  */
 public interface Contract {
-    interface Model extends IModel {
+    interface BaseModel extends IBaseModel {
         public void  getLogin(ObserverOnNextListener<LoginData> listener , String userName , String password);
     }
 

@@ -5,7 +5,7 @@ import com.example.wanandroidapp.bean.ArticleItemData;
 import com.example.wanandroidapp.bean.BannerData;
 import com.example.wanandroidapp.core.http.ObserverOnNextListener;
 import com.example.wanandroidapp.module.home_pager.contract.ArticleHomeContract;
-import com.example.wanandroidapp.module.home_pager.model.ArticleHomeModel;
+import com.example.wanandroidapp.module.home_pager.model.ArticleHomeBaseModel;
 import com.example.wanandroidapp.module.home_pager.ui.ArticleHomeActivity;
 import com.orhanobut.logger.Logger;
 
@@ -17,14 +17,16 @@ import java.util.List;
  * @date: 2019/7/13
  */
 public class ArticleHomePresenter extends BasePresenter<ArticleHomeContract.View> implements ArticleHomeContract.Presenter {
-    private ArticleHomeModel articleHomeModel;
+    private ArticleHomeBaseModel articleHomeModel;
     private int currentCurPage = 0;
     private List<ArticleItemData.DataBean.DatasBean>   mArtcileList;
+    private List<String> urls = new ArrayList<>();
+    private List<String> titles = new ArrayList<>();
     private List<BannerData.DataBean>  mBannerList ;
     public ArticleHomePresenter(ArticleHomeActivity view) {
         super(view);
         //实例化Model层
-        articleHomeModel = new ArticleHomeModel();
+        articleHomeModel = new ArticleHomeBaseModel();
         }
 
     @Override
@@ -55,7 +57,14 @@ public class ArticleHomePresenter extends BasePresenter<ArticleHomeContract.View
             public void onNext(BannerData bannerData) {
                 Logger.d("加载Banner  " + bannerData.getData().get(0).getImagePath());
                 mBannerList.addAll(bannerData.getData());
+                for (BannerData.DataBean dataBean : mBannerList) {
+                    Logger.d(dataBean.getImagePath());
+                    urls.add(dataBean.getImagePath());
+                    titles.add(dataBean.getTitle());
+                }
+                getView().putBannerData(urls,titles);
                 getView().showBannerData(bannerData.getData());
+
             }
 
             @Override

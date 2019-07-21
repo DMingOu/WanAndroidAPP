@@ -14,7 +14,7 @@ import java.util.List;
  * @author: ODM
  * @date: 2019/7/13
  */
-public class ArticleHomeModel implements ArticleHomeContract.Model {
+public class ArticleHomeBaseModel implements ArticleHomeContract.BaseModel {
     private List<ArticleItemData.DataBean.DatasBean>  mArtcileList;
 
     @Override

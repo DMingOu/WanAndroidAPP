@@ -1,6 +1,6 @@
 package com.example.wanandroidapp.module.home_pager.contract;
 
-import com.example.wanandroidapp.base.model.IModel;
+import com.example.wanandroidapp.base.model.IBaseModel;
 import com.example.wanandroidapp.base.presenter.IBasePresenter;
 import com.example.wanandroidapp.base.view.IBaseView;
 import com.example.wanandroidapp.bean.ArticleItemData;
@@ -21,7 +21,7 @@ public interface ArticleHomeContract {
     /**
      * The interface Model.
      */
-    interface Model extends IModel {
+    interface BaseModel extends IBaseModel {
         /**
          *  To Get article list.
          */
@@ -56,7 +56,7 @@ public interface ArticleHomeContract {
          * @param bannerDataList the banner data list
          */
         void showBannerData(List<BannerData.DataBean> bannerDataList);
-
+        void putBannerData(List<String> Urls , List<String> Titles);
          ArticleListAdapter getmArticleAdapter();
 
          XRecyclerView getxRvArticle();

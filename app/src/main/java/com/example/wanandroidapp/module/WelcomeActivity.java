@@ -56,11 +56,10 @@ public class WelcomeActivity extends AppCompatActivity {
         Random random = new Random(SystemClock.elapsedRealtime());
         ivEntry.setImageResource(ImgResource[random.nextInt(ImgResource.length)]);
          compositeDisposable = new CompositeDisposable();
-        Disposable disposable = Single.timer(1600, TimeUnit.MILLISECONDS)
+        Disposable disposable = Single.timer(1000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(aLong -> {
-                    Logger.d("动画启动");
                     startAnim();
                 });
         compositeDisposable.add(disposable);

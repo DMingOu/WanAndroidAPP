@@ -5,7 +5,7 @@ import com.example.wanandroidapp.base.presenter.BasePresenter;
 import com.example.wanandroidapp.bean.LoginData;
 import com.example.wanandroidapp.core.http.ObserverOnNextListener;
 import com.example.wanandroidapp.module.login.contract.Contract;
-import com.example.wanandroidapp.module.login.model.Model;
+import com.example.wanandroidapp.module.login.model.BaseModel;
 import com.example.wanandroidapp.module.login.ui.LoginActivity;
 import com.example.wanandroidapp.util.SharedPreferencesUtil;
 import com.orhanobut.logger.Logger;
@@ -18,10 +18,10 @@ import com.orhanobut.logger.Logger;
  */
 public class Presenter extends BasePresenter<Contract.View> implements Contract.Presenter{
 
-    private Model loginModel;
+    private BaseModel loginModel;
     public Presenter(LoginActivity  loginActivity){
         super(loginActivity);
-        loginModel = new Model();
+        loginModel = new BaseModel();
     }
 
     @Override

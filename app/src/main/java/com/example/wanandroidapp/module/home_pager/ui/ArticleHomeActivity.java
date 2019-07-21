@@ -10,8 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.example.wanandroidapp.R;
+import com.example.wanandroidapp.app.WanAndroidApp;
 import com.example.wanandroidapp.base.presenter.IBasePresenter;
 import com.example.wanandroidapp.base.view.BaseActivity;
 import com.example.wanandroidapp.bean.ArticleItemData;
@@ -26,6 +28,9 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +44,6 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
     Toolbar toolBarHome;
     @BindView(R.id.appbarlayout_main)
     AppBarLayout appbarlayoutMain;
-
-
-
     @BindView(R.id.rv_item_article)
     XRecyclerView xRvArticle;
     @BindView(R.id.fb_updown)
@@ -49,6 +51,7 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
 
     private List<ArticleItemData.DataBean.DatasBean> articleList = new ArrayList<>();
     private List<String> urls = new ArrayList<>();
+    private List<String> titles = new ArrayList<>();
     private ArticleListAdapter mArticleAdapter;
     private Banner mBanner;
     private View mView;
@@ -67,8 +70,7 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
         ButterKnife.bind(this);
         //通知P层去获取文章列表数据
         mArticleAdapter = new ArticleListAdapter(articleList);
-
-        mView = View.inflate(this, R.layout.view_banner, null);
+            mView = View.inflate(this, R.layout.view_banner, null);
         getPresenter().getArticleList();
         getPresenter().getBannerData();
         initView();
@@ -78,13 +80,11 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
     @Override
     protected void onPause() {
         super.onPause();
-        // bannerViewPager.stopAnim();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // bannerViewPager.startAnim();
     }
 
     @Override
@@ -101,6 +101,7 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         xRvArticle.setLayoutManager(layoutManager);
+
         xRvArticle.setAdapter(mArticleAdapter);
         xRvArticle.setRefreshProgressStyle(ProgressStyle.TriangleSkewSpin);
         xRvArticle.setLoadingMoreProgressStyle(ProgressStyle.BallClipRotate);
@@ -119,14 +120,12 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
             public void onRefresh() {
                 //refresh data here
                 getPresenter().refresh();
-                //xRvArticle.refreshComplete();
             }
 
             @Override
             public void onLoadMore() {
                 // load more data here
                 getPresenter().loadMore();
-                //xRvArticle.loadMoreComplete();
             }
         });
         fbUpdown.setOnClickListener(new View.OnClickListener() {
@@ -204,15 +203,42 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
 
     @Override
     public void showBannerData(List<BannerData.DataBean> bannerDataList) {
-        for (BannerData.DataBean dataBean : bannerDataList) {
-
-            Logger.d(dataBean.getImagePath());
-            urls.add(dataBean.getImagePath());
-        }
-        mBanner = (Banner) findViewById(R.id.banner_advtisement1);
+//        for (BannerData.DataBean dataBean : bannerDataList) {
+//
+//            Logger.d(dataBean.getImagePath());
+//            urls.add(dataBean.getImagePath());
+//            titles.add(dataBean.getTitle());
+//        }
+        //Banner初始化
+        LinearLayout mHeaderGroup = (LinearLayout) getLayoutInflater().inflate(R.layout.view_banner, null);
+        mBanner = mHeaderGroup.findViewById(R.id.head_banner);
+        mHeaderGroup.removeView(mBanner);
+        //设置banner样式,特定样式会需要设置标题进去
+        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+        //设置图片加载器
         mBanner.setImageLoader(new GlideImageLoader());
+        //设置图片集合,urls是已经获取到图片地址的字符串列表
         mBanner.setImages(urls);
+        mBanner.setBannerTitles(titles);
+        //设置banner动画效果
+        mBanner.setBannerAnimation(Transformer.Accordion);
+        mBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Intent intent = new Intent(ArticleHomeActivity.this, ReadActivity.class);
+                intent.putExtra("url", bannerDataList.get(position).getUrl());
+                intent.putExtra("title", bannerDataList.get(position).getTitle());
+                startActivity(intent);
+            }
+        });
         mBanner.start();
+        mArticleAdapter.setHeaderView(mBanner);
+    }
+
+    @Override
+    public void putBannerData(List<String> Urls , List<String> Titles){
+        this.urls = Urls;
+        this.titles = Titles;
 
     }
     @Override

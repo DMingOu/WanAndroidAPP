@@ -4,7 +4,7 @@ import com.example.wanandroidapp.base.presenter.BasePresenter;
 import com.example.wanandroidapp.bean.ArticleItemData;
 import com.example.wanandroidapp.core.http.ObserverOnNextListener;
 import com.example.wanandroidapp.module.search_article.contract.Contract;
-import com.example.wanandroidapp.module.search_article.model.Model;
+import com.example.wanandroidapp.module.search_article.model.BaseModel;
 import com.example.wanandroidapp.module.search_article.ui.SearchActivity;
 import com.orhanobut.logger.Logger;
 
@@ -16,14 +16,14 @@ import java.util.List;
  * @date: 2019/7/13
  */
 public class Presenter extends BasePresenter<Contract.View> implements Contract.Presenter {
-    private Model modelSearch;
+    private BaseModel modelSearch;
     private int currentPage = 0;
     private String currentKeyword = "";
     private List<ArticleItemData.DataBean.DatasBean> mArtcileList = new ArrayList<>();
     public Presenter(SearchActivity searchActivity) {
         super(searchActivity);
         //实例化Model层
-        modelSearch = new Model();
+        modelSearch = new BaseModel();
     }
 
     @Override
