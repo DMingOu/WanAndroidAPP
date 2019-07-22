@@ -68,8 +68,9 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
         setContentView(R.layout.activity_home_ariticle);
         ButterKnife.bind(this);
         mArticleAdapter = new ArticleListAdapter(articleList);
-        getPresenter().getArticleList();
         getPresenter().getBannerData();
+        getPresenter().getArticleList();
+
         initView();
         initToolbar();
     }
