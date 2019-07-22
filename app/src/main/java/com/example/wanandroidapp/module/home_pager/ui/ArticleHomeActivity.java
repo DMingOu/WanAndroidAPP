@@ -54,7 +54,6 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
     private List<String> titles = new ArrayList<>();
     private ArticleListAdapter mArticleAdapter;
     private Banner mBanner;
-    private View mView;
 
     @Override
     public ArticleHomePresenter onBindPresenter() {
@@ -68,9 +67,7 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_ariticle);
         ButterKnife.bind(this);
-        //通知P层去获取文章列表数据
         mArticleAdapter = new ArticleListAdapter(articleList);
-            mView = View.inflate(this, R.layout.view_banner, null);
         getPresenter().getArticleList();
         getPresenter().getBannerData();
         initView();
@@ -110,8 +107,8 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
             @Override
             public void onArticleItemClick(View itemView, int position) {
                 Intent intent = new Intent(ArticleHomeActivity.this, ReadActivity.class);
-                intent.putExtra("url", mArticleAdapter.getmArticleList().get(position).getLink());
-                intent.putExtra("title", mArticleAdapter.getmArticleList().get(position).getTitle());
+                intent.putExtra("url", mArticleAdapter.getmArticleList().get(position ).getLink());
+                intent.putExtra("title", mArticleAdapter.getmArticleList().get(position ).getTitle());
                 startActivity(intent);
             }
         });
@@ -203,31 +200,25 @@ public class ArticleHomeActivity<P extends IBasePresenter> extends BaseActivity<
 
     @Override
     public void showBannerData(List<BannerData.DataBean> bannerDataList) {
-//        for (BannerData.DataBean dataBean : bannerDataList) {
-//
-//            Logger.d(dataBean.getImagePath());
-//            urls.add(dataBean.getImagePath());
-//            titles.add(dataBean.getTitle());
-//        }
         //Banner初始化
         LinearLayout mHeaderGroup = (LinearLayout) getLayoutInflater().inflate(R.layout.view_banner, null);
         mBanner = mHeaderGroup.findViewById(R.id.head_banner);
         mHeaderGroup.removeView(mBanner);
         //设置banner样式,特定样式会需要设置标题进去
-        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+        mBanner.setBannerStyle(BannerConfig.NUM_INDICATOR);
         //设置图片加载器
         mBanner.setImageLoader(new GlideImageLoader());
         //设置图片集合,urls是已经获取到图片地址的字符串列表
         mBanner.setImages(urls);
         mBanner.setBannerTitles(titles);
         //设置banner动画效果
-        mBanner.setBannerAnimation(Transformer.Accordion);
+        mBanner.setBannerAnimation(Transformer.RotateUp);
         mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
                 Intent intent = new Intent(ArticleHomeActivity.this, ReadActivity.class);
-                intent.putExtra("url", bannerDataList.get(position).getUrl());
-                intent.putExtra("title", bannerDataList.get(position).getTitle());
+                intent.putExtra("url", bannerDataList.get(position ).getUrl());
+                intent.putExtra("title", bannerDataList.get(position ).getTitle());
                 startActivity(intent);
             }
         });

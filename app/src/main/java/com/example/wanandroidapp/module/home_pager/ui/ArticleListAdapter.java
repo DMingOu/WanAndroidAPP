@@ -86,6 +86,7 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
         if (mContext == null) {
             mContext = parent.getContext();
         }
+
         if (viewType == ITEM_TYPE_HEADER) {
             return new HeaderViewHolder(mHeadView);
         } else {
@@ -96,12 +97,20 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(getItemCount() <= 1) {
+            return;
+        }
         if(holder instanceof  HeaderViewHolder) {
             return;
         }
-
         if(holder instanceof  ItemArticleViewHolder){
-            itemData = mArticleList.get(position);
+            if(mHeadView != null) {
+                itemData = mArticleList.get(position - 1);
+                ((ItemArticleViewHolder) holder).cvItemArticle.setTag(position -1);
+            } else {
+                itemData = mArticleList.get(position );
+                ((ItemArticleViewHolder) holder).cvItemArticle.setTag(position );
+            }
             ((ItemArticleViewHolder) holder).tvTitle.setText(Html.fromHtml(itemData.getTitle()));
             ((ItemArticleViewHolder) holder).tvTime.setText(itemData.getNiceDate());
             String authoreInfo = "作者:  " + itemData.getAuthor();
@@ -111,7 +120,7 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
             }
             ((ItemArticleViewHolder) holder).tvSChapterName.setText(itemData.getSuperChapterName());
             //设置Tag 方便进行点击事件数据的处理
-            ((ItemArticleViewHolder) holder).cvItemArticle.setTag(position);
+
         }
         QueryBuilder<HistoryArticleData> qb = daoSession.queryBuilder(HistoryArticleData.class);
         QueryBuilder<HistoryArticleData> historyArticleDataQueryBuilder = qb.where(HistoryArticleDataDao.Properties.Id
@@ -131,7 +140,11 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemData = mArticleList.get(position);
+                if(mHeadView != null){
+                    itemData = mArticleList.get(position - 1);
+                } else {
+                    itemData = mArticleList.get(position);
+                }
                 itemData.setClicked(true);
                 //将点击阅读的文章数据存入数据库,更新本次阅读的时间
                     HistoryArticleData history = new HistoryArticleData();
@@ -154,7 +167,7 @@ public class ArticleListAdapter  extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return  mArticleList.size();
+        return  mArticleList.size() + 1;
     }
 
     //根据不同位置判断view的种类，返回不同的值
